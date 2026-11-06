@@ -339,5 +339,30 @@
   "author": "AI 생성 이미지 (Canva)",
   "ai": true,
   "file": "i-spam.png"
+ },
+ "i-tuna": {
+  "title": "참치캔",
+  "author": "AI 생성 이미지 (Figma, Gemini 3.1 Flash Lite Image)",
+  "ai": true
+ },
+ "i-fishcake": {
+  "title": "어묵",
+  "author": "AI 생성 이미지 (Figma, Gemini 3.1 Flash Lite Image)",
+  "ai": true
+ },
+ "i-milk": {
+  "title": "우유",
+  "author": "AI 생성 이미지 (Figma, Gemini 3.1 Flash Lite Image)",
+  "ai": true
+ },
+ "r-spamdon": {
+  "title": "스팸마요덮밥",
+  "author": "AI 생성 이미지 (Figma, Gemini 3.1 Flash Lite Image)",
+  "ai": true
+ },
+ "r-mutguk": {
+  "title": "소고기무국",
+  "author": "AI 생성 이미지 (Figma, Gemini 3.1 Flash Lite Image)",
+  "ai": true
  }
 }
