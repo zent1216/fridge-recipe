@@ -5,21 +5,20 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>오늘 뭐 해먹지</title>
 <meta name="description" content="냉장고 재료와 난이도를 고르면 요리를 추천하고 손질법과 레시피를 알려줍니다.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jua&family=Gowun+Dodum&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <style>
 /* 냉장고 안쪽: 차가운 선반색 바탕, 재료는 선반 칸, 난이도는 온도 조절 다이얼처럼 */
 :root{--bg:#e9f0f1;--shelf:#f8fbfb;--ink:#17302f;--soft:#587170;--line:#c9d8d9;--accent:#0b6e69;--on-accent:#fff;--warm:#d9480f;--have:#dff3e4;--have-ink:#17603a;--miss:#fde8dc;--miss-ink:#a33a0b;
---display:"Jua","Malgun Gothic",sans-serif;--body:"Gowun Dodum","Malgun Gothic","Apple SD Gothic Neo",sans-serif}
+--display:"Pretendard Variable",Pretendard,-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;--body:var(--display)}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#101b1c;--shelf:#182627;--ink:#e6f0ef;--soft:#9db3b2;--line:#2e4243;--accent:#4cc4bb;--on-accent:#06302d;--warm:#ff9a66;--have:#173a28;--have-ink:#9be3b4;--miss:#47250f;--miss-ink:#ffc09b;color-scheme:dark}}
 :root[data-theme="dark"]{--bg:#101b1c;--shelf:#182627;--ink:#e6f0ef;--soft:#9db3b2;--line:#2e4243;--accent:#4cc4bb;--on-accent:#06302d;--warm:#ff9a66;--have:#173a28;--have-ink:#9be3b4;--miss:#47250f;--miss-ink:#ffc09b;color-scheme:dark}
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
-body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 var(--body);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:20px 48px}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 var(--body);letter-spacing:-.01em;word-break:keep-all;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:20px 48px}
 .wrap{max-width:1120px;margin:0 auto;display:flex;flex-direction:column;gap:24px}
-h1,h2,h3{font-family:var(--display);font-weight:400;line-height:1.25;margin:0;text-wrap:balance}
-h1{font-size:clamp(2rem,6vw,3rem);color:var(--accent)}
-h2{font-size:1.5rem}h3{font-size:1.15rem}
+h1,h2,h3{font-family:var(--display);font-weight:700;line-height:1.25;margin:0;text-wrap:balance;letter-spacing:-.025em}
+h1{font-size:clamp(2rem,6vw,2.75rem);font-weight:800;color:var(--accent)}
+h2{font-size:1.4rem}h3{font-size:1.1rem;font-weight:600}
 p{margin:0}
 header p{color:var(--soft)}
 button,input{font:inherit;color:inherit}
@@ -28,7 +27,7 @@ button{cursor:pointer}
 .panel{background:var(--shelf);border:1px solid var(--line);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:14px}
 .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 #q{flex:1 1 200px;min-width:0;padding:11px 14px;border:1px solid var(--line);border-radius:10px;background:var(--bg)}
-.btn{padding:10px 16px;border:0;border-radius:10px;background:var(--accent);color:var(--on-accent);font-family:var(--display)}
+.btn{padding:10px 16px;border:0;border-radius:10px;background:var(--accent);color:var(--on-accent);font-weight:600}
 .ghost{background:none;border:1px solid var(--line);color:var(--ink)}
 .chips{display:flex;flex-wrap:wrap;gap:6px;min-height:36px}
 .chip{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border:0;border-radius:99px;background:var(--have);color:var(--have-ink)}
@@ -40,10 +39,10 @@ button{cursor:pointer}
 .ing[aria-pressed="true"]{border-color:var(--accent);font-weight:700}
 .ing[aria-pressed="true"]::after{content:"✓";position:absolute;top:4px;right:4px;width:22px;height:22px;border-radius:50%;background:var(--accent);color:var(--on-accent);line-height:22px}
 .ph{display:block;width:100%;object-fit:cover;background:var(--line)}
-.tile{display:grid;place-items:center;font-family:var(--display);color:var(--accent);background:var(--bg);border:1px dashed var(--line);text-align:center;padding:4px}
+.tile{display:grid;place-items:center;font-weight:600;color:var(--accent);background:var(--bg);border:1px dashed var(--line);text-align:center;padding:4px}
 .levels{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
 .lv{padding:10px 6px;border:2px solid var(--line);border-radius:12px;background:none;line-height:1.3}
-.lv b{display:block;font:400 1.25rem var(--display)}
+.lv b{display:block;font-size:1.15rem;font-weight:700}
 .lv small{color:var(--soft)}
 .lv[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
 .lv[aria-pressed="true"] small{color:inherit}
@@ -67,7 +66,7 @@ td:last-child{text-align:right;white-space:nowrap}
 ol{margin:0;padding-left:1.3em}
 .steps{list-style:none;padding:0;display:flex;flex-direction:column;gap:12px;counter-reset:s}
 .steps li{counter-increment:s;display:grid;grid-template-columns:36px minmax(0,1fr);gap:12px}
-.steps li::before{content:counter(s);width:34px;height:34px;border-radius:50%;background:var(--accent);color:var(--on-accent);font-family:var(--display);display:grid;place-items:center}
+.steps li::before{content:counter(s);width:34px;height:34px;border-radius:50%;background:var(--accent);color:var(--on-accent);font-weight:700;display:grid;place-items:center}
 .thumbs{display:flex;gap:6px;margin-top:6px;flex-wrap:wrap}
 .tip{background:var(--miss);color:var(--miss-ink);padding:12px 14px;border-radius:12px}
 footer{font-size:.88rem;color:var(--soft)}
