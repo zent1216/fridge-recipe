@@ -538,5 +538,55 @@
   "author": "udono",
   "license": "CC BY 2.0",
   "url": "https://commons.wikimedia.org/wiki/File:Udon_by_udono.jpg"
+ },
+ "i-octopus": {
+  "title": "낙지·주꾸미",
+  "author": "AI 생성 이미지 (Figma, Gemini 3.1 Flash Lite Image)",
+  "ai": true
+ },
+ "i-mackerel": {
+  "title": "고등어",
+  "author": "AI 생성 이미지 (Figma, Gemini 3.1 Flash Lite Image)",
+  "ai": true
+ },
+ "i-chive": {
+  "title": "부추",
+  "author": "AI 생성 이미지 (Figma, Gemini 3.1 Flash Lite Image)",
+  "ai": true
+ },
+ "i-napa": {
+  "title": "배추",
+  "author": "AI 생성 이미지 (Figma, Gemini 3.1 Flash Lite Image)",
+  "ai": true
+ },
+ "i-lettuce": {
+  "title": "상추",
+  "author": "AI 생성 이미지 (Figma, Gemini 3.1 Flash Lite Image)",
+  "ai": true
+ },
+ "i-kelp": {
+  "title": "다시마",
+  "author": "AI 생성 이미지 (Figma, Gemini 3.1 Flash Lite Image)",
+  "ai": true
+ },
+ "i-pear": {
+  "title": "배",
+  "author": "AI 생성 이미지 (Figma, Gemini 3.1 Flash Lite Image)",
+  "ai": true
+ },
+ "i-avocado": {
+  "title": "아보카도",
+  "author": "AI 생성 이미지 (Figma, Gemini 3.1 Flash Lite Image)",
+  "ai": true
+ },
+ "i-soymilk": {
+  "title": "두유",
+  "author": "AI 생성 이미지 (Figma, Gemini 3.1 Flash Lite Image)",
+  "ai": true
+ },
+ "i-noodle": {
+  "title": "국수면",
+  "author": "AI 생성 이미지 (Figma, Gemini 3.1 Flash Lite Image)",
+  "ai": true
  }
 }
