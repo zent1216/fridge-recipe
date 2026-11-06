@@ -71,5 +71,10 @@ const RECIPES = [
 ];
 
 const LEVELS = {1:{n:"쉬움",d:"칼질 조금, 30분 이내"},2:{n:"중간",d:"재우거나 끓이는 과정 포함"},3:{n:"어려움",d:"손질과 단계가 많은 요리"}};
-const PANTRY = ["소금","설탕","간장","식용유","참기름","고춧가루","고추장","된장","후추"];
-if (typeof module !== "undefined") module.exports = {INGREDIENTS, RECIPES, LEVELS, PANTRY};
+// 사용자가 직접 고르는 양념. SUBS는 없을 때 대신 쓸 수 있는 양념, OPT_SAUCE는 빼도 되는 양념
+const SEASONINGS = ["소금","설탕","간장","국간장","식용유","참기름","고춧가루","고추장","된장","후추","식초","맛술","물엿","마요네즈","새우젓","굴소스"];
+const SUBS = {"국간장":["간장","소금"],"물엿":["설탕"],"참기름":["식용유"],"식용유":["참기름"],"맛술":["설탕"]};
+const OPT_SAUCE = ["통깨","후추","통후추","월계수잎","커피가루 또는 소주","돈가스 소스"];
+// 없어도 만들 수 있는 재료
+const OPT = {gyeranmari:["scallion","carrot"],kimchirice:["scallion","egg"],tunamayo:["onion","egg"],gyeranjjim:["scallion"],kongnamulguk:["scallion","garlic"],eomukbokkeum:["carrot","onion"],spamdon:["onion","egg"],tomatoegg:["scallion"],kimchijjigae:["tofu","scallion","onion"],doenjang:["zucchini","potato","onion","chili"],jeyuk:["carrot","scallion"],tteokbokki:["cabbage","fishcake","scallion"],miyeokguk:["garlic"],gamjajorim:["carrot","onion"],ojingeo:["cabbage","chili"],budae:["cheese","tofu","ramen"],mutguk:["garlic","scallion"],japchae:["spinach","mushroom"],dakbokkeum:["carrot"],pajeon:["chili","shrimp","egg"],gimbap:["spam","spinach"],bibimbap:["beef","mushroom","zucchini"],suyuk:["onion","scallion"],donkatsu:["cabbage"],galbijjim:["mushroom"]};
+if (typeof module !== "undefined") module.exports = {INGREDIENTS, RECIPES, LEVELS, SEASONINGS, SUBS, OPT_SAUCE, OPT};

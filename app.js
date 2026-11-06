@@ -2,17 +2,18 @@ const KEY = "fridge-v1";
 const SAMPLE = ["egg", "scallion", "onion", "kimchi", "rice", "pork"];
 const app = document.getElementById("app");
 let photos = null; // credits.json 내용. 사진이 있는 항목만 들어 있음
-const state = {have: new Set(SAMPLE), custom: [], level: 1, sample: true};
+const SAMPLE_SEAS = ["소금", "설탕", "간장", "식용유"];
+const state = {have: new Set(SAMPLE), seas: new Set(SAMPLE_SEAS), custom: [], level: 1, sample: true, showMiss: false};
 
 function load() {
   try {
     const s = JSON.parse(localStorage.getItem(KEY));
-    if (s) { state.have = new Set(s.have.filter(k => INGREDIENTS[k])); state.custom = s.custom || []; state.level = s.level || 1; state.sample = false; }
+    if (s) { state.have = new Set(s.have.filter(k => INGREDIENTS[k])); state.seas = new Set((s.seas || []).filter(x => SEASONINGS.includes(x))); state.custom = s.custom || []; state.level = s.level || 1; state.showMiss = !!s.showMiss; state.sample = false; }
   } catch (e) {}
 }
 function save() {
   state.sample = false;
-  try { localStorage.setItem(KEY, JSON.stringify({have: [...state.have], custom: state.custom, level: state.level})); } catch (e) {}
+  try { localStorage.setItem(KEY, JSON.stringify({have: [...state.have], seas: [...state.seas], custom: state.custom, level: state.level, showMiss: state.showMiss})); } catch (e) {}
 }
 const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 
@@ -24,20 +25,41 @@ function img(id, label, cls) {
   if (photos && photos[id]) return `<img class="ph ${cls}" src="images/${esc(photos[id].file || id + ".jpg")}" alt="${esc(label)}" loading="lazy">`;
   return `<span class="ph tile ${cls}" role="img" aria-label="${esc(label)}">${esc(label)}</span>`;
 }
-function scored() {
-  return RECIPES.filter(r => r.lv === state.level).map(r => {
-    const miss = r.ing.filter(([k]) => !state.have.has(k)).map(([k]) => k);
-    return {r, miss, got: r.ing.length - miss.length};
-  }).sort((a, b) => a.miss.length - b.miss.length || a.r.min - b.r.min);
+// 양념 하나의 상태: 물은 항상 있음, 다진 마늘은 마늘로 판단, 없으면 대체 양념을 찾음
+function sauceState(name) {
+  const alts = name.split(" 또는 ").map(s => s.trim());
+  if (alts.some(x => /^찬?물$/.test(x) || x === "쌀뜨물")) return {ok: true};
+  for (const x of alts) {
+    if (state.seas.has(x) || (x === "다진 마늘" && state.have.has("garlic"))) return {ok: true};
+  }
+  for (const x of alts) {
+    const sub = (SUBS[x] || []).find(s => state.seas.has(s));
+    if (sub) return {ok: true, sub};
+  }
+  return {ok: false, opt: OPT_SAUCE.includes(name)};
 }
-function cardHTML({r, miss, got}) {
-  const status = miss.length ? `<span class="pill miss">${miss.length}개 부족</span>` : `<span class="pill">바로 가능</span>`;
-  const list = miss.length ? "없는 재료: " + miss.map(k => INGREDIENTS[k].n).join(", ") : "필요한 재료가 모두 있습니다";
+function check(r) {
+  const opt = OPT[r.id] || [];
+  const missKeys = r.ing.filter(([k]) => !state.have.has(k)).map(([k]) => k);
+  const need = missKeys.filter(k => !opt.includes(k)).map(k => INGREDIENTS[k].n);
+  const skip = missKeys.filter(k => opt.includes(k)).map(k => INGREDIENTS[k].n);
+  r.sauce.forEach(([n]) => { const s = sauceState(n); if (!s.ok) (s.opt ? skip : need).push(n); });
+  const got = r.ing.length - missKeys.length;
+  return {r, miss: need, skip, got};
+}
+function ready(l) { return RECIPES.filter(r => r.lv === l).map(check).filter(x => x.got > 0 && !x.miss.length).length; }
+function scored() {
+  return RECIPES.filter(r => r.lv === state.level).map(check).filter(x => x.got > 0 && (state.showMiss || !x.miss.length))
+    .sort((a, b) => a.miss.length - b.miss.length || a.skip.length - b.skip.length || a.r.min - b.r.min);
+}
+function cardHTML({r, miss, skip, got}) {
+  const status = miss.length ? `<span class="pill miss">${miss.length}개 부족</span>` : `<span class="pill">지금 가능</span>`;
+  const list = miss.length ? "없는 재료: " + miss.join(", ") : skip.length ? "빼고 만들기: " + skip.join(", ") : "필요한 재료가 모두 있습니다";
   return `<a class="card" href="#r-${r.id}">${img("r-" + r.id, r.n, "")}<span class="in"><h3>${esc(r.n)}</h3>
     <span class="row">${status}<span class="meta">재료 ${got}/${r.ing.length} · ${r.min}분</span></span><span class="note">${list}</span></span></a>`;
 }
 function home() {
-  const list = scored(), ok = list.filter(x => x.got > 0);
+  const ok = scored();
   document.title = "오늘 뭐 해먹지";
   const chips = [...state.have].map(k => `<button class="chip" data-del="${k}" aria-label="${INGREDIENTS[k].n} 빼기">${INGREDIENTS[k].n} ×</button>`).join("")
     + state.custom.map((c, i) => `<button class="chip unknown" data-delc="${i}" aria-label="${esc(c)} 빼기">${esc(c)} ×</button>`).join("");
@@ -49,10 +71,14 @@ function home() {
     <div class="chips">${chips || `<span class="note">아직 넣은 재료가 없습니다. 아래 사진을 누르거나 이름을 입력하세요.</span>`}</div>
     ${state.custom.length ? `<p class="note">주황색 재료는 아직 레시피에 없어 추천에 반영되지 않습니다.</p>` : ""}
     <div class="grid-ing">${Object.entries(INGREDIENTS).map(([k, v]) => `<button class="ing" data-k="${k}" aria-pressed="${state.have.has(k)}">${img("i-" + k, v.n, "")}${v.n}</button>`).join("")}</div>
-    <p class="note">소금, 설탕, 간장, 고추장 같은 기본 양념은 있다고 보고 추천합니다.</p></section>
-  <section class="panel" aria-labelledby="h-l"><h2 id="h-l">난이도</h2><div class="levels">${[1,2,3].map(l => `<button class="lv" data-l="${l}" aria-pressed="${state.level === l}"><b>${LEVELS[l].n}</b><small>${LEVELS[l].d}</small></button>`).join("")}</div></section>
-  <section style="display:flex;flex-direction:column;gap:12px" aria-labelledby="h-r"><h2 id="h-r">추천 요리 ${ok.length}개</h2>
-    ${ok.length ? `<div class="cards">${ok.map(cardHTML).join("")}</div>` : `<p class="panel">이 난이도에서 맞는 요리가 없습니다. 재료를 더 넣거나 난이도를 바꿔 보세요.</p>`}</section>
+    </section>
+  <section class="panel" aria-labelledby="h-s"><div class="row between"><h2 id="h-s">기본 양념</h2><span class="row"><button class="btn ghost small" id="seas-all">모두 있음</button><button class="btn ghost small" id="seas-none">모두 없음</button></span></div>
+    <div class="chips">${SEASONINGS.map(s => `<button class="sea" data-s="${s}" aria-pressed="${state.seas.has(s)}">${s}</button>`).join("")}</div>
+    <p class="note">물은 있다고 봅니다. 일부 양념은 있는 양념으로 대체해 추천합니다.</p></section>
+  <section class="panel" aria-labelledby="h-l"><h2 id="h-l">난이도</h2><div class="levels">${[1,2,3].map(l => `<button class="lv" data-l="${l}" aria-pressed="${state.level === l}"><b>${LEVELS[l].n}</b><small>${LEVELS[l].d}</small><small class="cnt">지금 가능 ${ready(l)}개</small></button>`).join("")}</div></section>
+  <section style="display:flex;flex-direction:column;gap:12px" aria-labelledby="h-r"><h2 id="h-r">${state.showMiss ? "추천 요리" : "지금 만들 수 있는 요리"} ${ok.length}개</h2>
+    <label class="check"><input type="checkbox" id="show-miss" ${state.showMiss ? "checked" : ""}> 부족한 재료가 있는 요리도 보기</label>
+    ${ok.length ? `<div class="cards">${ok.map(cardHTML).join("")}</div>` : `<p class="panel">${state.showMiss ? "이 난이도에서 맞는 요리가 없습니다. 재료를 더 넣거나 난이도를 바꿔 보세요." : "지금 재료와 양념으로 만들 수 있는 요리가 없습니다. 재료를 더 넣거나 다른 난이도를 고르거나, 위 체크를 켜 보세요."}</p>`}</section>
   <footer>사진: 위키미디어 공용 · <a href="#credits">사진 출처 보기</a></footer>`;
 }
 function stepThumbs(r, text) {
@@ -61,14 +87,14 @@ function stepThumbs(r, text) {
 function detail(r) {
   document.title = r.n + " · 오늘 뭐 해먹지";
   const row = ([k, amt]) => {
-    const has = state.have.has(k), v = INGREDIENTS[k];
-    return `<tr><td><span class="nm">${img("i-" + k, v.n, "mini")}${v.n}</span></td><td><span class="pill ${has ? "" : "miss"}">${has ? "있음" : "없음"}</span></td><td>${amt}</td></tr>`;
+    const has = state.have.has(k), v = INGREDIENTS[k], opt = (OPT[r.id] || []).includes(k);
+    return `<tr><td><span class="nm">${img("i-" + k, v.n, "mini")}${v.n}</span></td><td><span class="pill ${has ? "" : opt ? "opt" : "miss"}">${has ? "있음" : opt ? "빼도 됨" : "없음"}</span></td><td>${amt}</td></tr>`;
   };
   app.innerHTML = `<article class="detail"><a href="#">← 추천 목록으로</a>
    ${img("r-" + r.id, r.n, "hero")}
    <div><h1>${r.n}</h1><p class="meta">${LEVELS[r.lv].n} · ${r.min}분 · 2인분${photos && photos["r-" + r.id] && photos["r-" + r.id].ai ? " · 사진은 AI 생성 이미지입니다" : ""}</p></div>
    <section><h2>재료</h2><table>${r.ing.map(row).join("")}</table></section>
-   <section><h2>양념</h2><table>${r.sauce.map(([n, a]) => `<tr><td>${n}</td><td>${a}</td></tr>`).join("")}</table></section>
+   <section><h2>양념</h2><table>${r.sauce.map(([n, a]) => { const s = sauceState(n); const tag = /^찬?물$|또는 물$/.test(n) ? "" : s.sub ? `<span class="pill opt">${s.sub}로 대체</span>` : s.ok ? `<span class="pill">있음</span>` : s.opt ? `<span class="pill opt">빼도 됨</span>` : `<span class="pill miss">없음</span>`; return `<tr><td>${n}</td><td>${tag}</td><td>${a}</td></tr>`; }).join("")}</table></section>
    <section><h2>재료 손질</h2>${r.ing.map(([k]) => { const v = INGREDIENTS[k]; return `<div class="prep">${img("i-" + k, v.n, "")}<div><h3>${v.n}</h3>${photos && photos["i-" + k] && photos["i-" + k].ai ? `<p class="note">사진은 AI 생성 이미지입니다.</p>` : ""}<ol>${v.prep.map(p => `<li>${p}</li>`).join("")}</ol><p class="note">보관: ${v.keep}</p></div></div>`; }).join("")}</section>
    <section><h2>만드는 법</h2><ol class="steps">${r.steps.map(s => { const t = stepThumbs(r, s); return `<li><div>${s}${t ? `<div class="thumbs">${t}</div>` : ""}</div></li>`; }).join("")}</ol></section>
    <p class="tip"><b>팁</b> ${r.tip}</p></article>`;
@@ -93,6 +119,9 @@ app.addEventListener("click", e => {
   else if (b.dataset.del) keepScroll(() => state.have.delete(b.dataset.del));
   else if (b.dataset.delc) keepScroll(() => state.custom.splice(+b.dataset.delc, 1));
   else if (b.dataset.l) keepScroll(() => { state.level = +b.dataset.l; });
+  else if (b.dataset.s) keepScroll(() => { const s = b.dataset.s; state.seas.has(s) ? state.seas.delete(s) : state.seas.add(s); });
+  else if (b.id === "seas-all") keepScroll(() => { state.seas = new Set(SEASONINGS); });
+  else if (b.id === "seas-none") keepScroll(() => { state.seas.clear(); });
   else if (b.id === "clear") keepScroll(() => { state.have.clear(); state.custom = []; });
 });
 app.addEventListener("submit", e => {
@@ -102,6 +131,7 @@ app.addEventListener("submit", e => {
   keepScroll(() => parts.forEach(p => { const k = resolve(p); if (k) state.have.add(k); else if (!state.custom.includes(p)) state.custom.push(p); }));
   document.getElementById("q").focus();
 });
+app.addEventListener("change", e => { if (e.target.id === "show-miss") keepScroll(() => { state.showMiss = e.target.checked; }); });
 addEventListener("hashchange", route);
 load();
 route();
