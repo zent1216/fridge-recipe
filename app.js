@@ -66,7 +66,7 @@ function detail(r) {
   };
   app.innerHTML = `<article class="detail"><a href="#">← 추천 목록으로</a>
    ${img("r-" + r.id, r.n, "hero")}
-   <div><h1>${r.n}</h1><p class="meta">${LEVELS[r.lv].n} · ${r.min}분 · 2인분</p></div>
+   <div><h1>${r.n}</h1><p class="meta">${LEVELS[r.lv].n} · ${r.min}분 · 2인분${photos && photos["r-" + r.id] && photos["r-" + r.id].ai ? " · 사진은 AI 생성 이미지입니다" : ""}</p></div>
    <section><h2>재료</h2><table>${r.ing.map(row).join("")}</table></section>
    <section><h2>양념</h2><table>${r.sauce.map(([n, a]) => `<tr><td>${n}</td><td>${a}</td></tr>`).join("")}</table></section>
    <section><h2>재료 손질</h2>${r.ing.map(([k]) => { const v = INGREDIENTS[k]; return `<div class="prep">${img("i-" + k, v.n, "")}<div><h3>${v.n}</h3>${photos && photos["i-" + k] && photos["i-" + k].ai ? `<p class="note">사진은 AI 생성 이미지입니다.</p>` : ""}<ol>${v.prep.map(p => `<li>${p}</li>`).join("")}</ol><p class="note">보관: ${v.keep}</p></div></div>`; }).join("")}</section>
