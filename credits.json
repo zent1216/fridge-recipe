@@ -323,22 +323,22 @@
   "ai": true
  },
  "i-zucchini": {
-  "title": "애호박",
-  "author": "AI 생성 이미지 (Canva)",
-  "ai": true,
-  "file": "i-zucchini.png"
+  "title": "Aehobak-buchu-buchimgae 2.jpg",
+  "author": "에그란",
+  "license": "CC BY 4.0",
+  "url": "https://commons.wikimedia.org/wiki/File:Aehobak-buchu-buchimgae_2.jpg"
  },
  "i-tofu": {
-  "title": "두부",
-  "author": "AI 생성 이미지 (Canva)",
-  "ai": true,
-  "file": "i-tofu.png"
+  "title": "Making Tofu - 20170206 - Spliting.jpg",
+  "author": "DragonSamYU",
+  "license": "CC BY-SA 4.0",
+  "url": "https://commons.wikimedia.org/wiki/File:Making_Tofu_-_20170206_-_Spliting.jpg"
  },
  "i-spam": {
-  "title": "런천미트",
-  "author": "AI 생성 이미지 (Canva)",
-  "ai": true,
-  "file": "i-spam.png"
+  "title": "HK SKD TKO 將軍澳 TKO 康城路1號 Lohas Park Road Montara LOHAS Park 日出康城商場 The Lohas Shopping Mall shop Fresh Supermarket 回鍋肉 Sliced pork n Ma Ling brand canned luncheon meat March 2022 Px2.jpg",
+  "author": "LAmysuk BOOa",
+  "license": "CC BY-SA 4.0",
+  "url": "https://commons.wikimedia.org/wiki/File:HK_SKD_TKO_%E5%B0%87%E8%BB%8D%E6%BE%B3_TKO_%E5%BA%B7%E5%9F%8E%E8%B7%AF1%E8%99%9F_Lohas_Park_Road_Montara_LOHAS_Park_%E6%97%A5%E5%87%BA%E5%BA%B7%E5%9F%8E%E5%95%86%E5%A0%B4_The_Lohas_Shopping_Mall_shop_Fresh_Supermarket_%E5%9B%9E%E9%8D%8B%E8%82%89_Sliced_pork_n_Ma_Ling_brand_canned_luncheon_meat_March_2022_Px2.jpg"
  },
  "i-tuna": {
   "title": "참치캔",
@@ -364,5 +364,179 @@
   "title": "소고기무국",
   "author": "AI 생성 이미지 (Figma, Gemini 3.1 Flash Lite Image)",
   "ai": true
+ },
+ "i-bacon": {
+  "title": "RawBacon.JPG",
+  "author": "Jonathunder",
+  "license": "CC BY-SA 3.0",
+  "url": "https://commons.wikimedia.org/wiki/File:RawBacon.JPG"
+ },
+ "i-mussel": {
+  "title": "Mytilus edulis 002.jpg",
+  "author": "H. Zell",
+  "license": "CC BY-SA 3.0",
+  "url": "https://commons.wikimedia.org/wiki/File:Mytilus_edulis_002.jpg"
+ },
+ "i-salmon": {
+  "title": "Raw salmon fillets.jpg",
+  "author": "FULVIO_TOGNON",
+  "license": "CC0",
+  "url": "https://commons.wikimedia.org/wiki/File:Raw_salmon_fillets.jpg"
+ },
+ "i-anchovy": {
+  "title": "Dried anchovies.jpg",
+  "author": "myllissa",
+  "license": "CC BY 2.0",
+  "url": "https://commons.wikimedia.org/wiki/File:Dried_anchovies.jpg"
+ },
+ "i-cucumber": {
+  "title": "Greek yoghurt cucumbers garlic.jpg",
+  "author": "Nikodem Nijaki",
+  "license": "CC BY-SA 3.0",
+  "url": "https://commons.wikimedia.org/wiki/File:Greek_yoghurt_cucumbers_garlic.jpg"
+ },
+ "i-perilla": {
+  "title": "Perilla leaves 2.jpg",
+  "author": "Sous Chef",
+  "license": "CC BY 2.0",
+  "url": "https://commons.wikimedia.org/wiki/File:Perilla_leaves_2.jpg"
+ },
+ "i-beansprout": {
+  "title": "Mung bean sprouts, close-up.jpg",
+  "author": "pics_pd",
+  "license": "CC0",
+  "url": "https://commons.wikimedia.org/wiki/File:Mung_bean_sprouts,_close-up.jpg"
+ },
+ "i-sweetpotato": {
+  "title": "Sweet Potato.jpg",
+  "author": "Gaurav Dhwaj Khadka",
+  "license": "CC BY-SA 4.0",
+  "url": "https://commons.wikimedia.org/wiki/File:Sweet_Potato.jpg"
+ },
+ "i-sweetpumpkin": {
+  "title": "Kabocha squash dish.jpg",
+  "author": "Sdkb",
+  "license": "CC BY-SA 4.0",
+  "url": "https://commons.wikimedia.org/wiki/File:Kabocha_squash_dish.jpg"
+ },
+ "i-eggplant": {
+  "title": "Solanum melongena 24 08 2012 (1).JPG",
+  "author": "Joydeep",
+  "license": "CC BY-SA 3.0",
+  "url": "https://commons.wikimedia.org/wiki/File:Solanum_melongena_24_08_2012_(1).JPG"
+ },
+ "i-broccoli": {
+  "title": "Liat Portal for Foodie Disorder - Broccoli from San Francisco farmers market.jpg",
+  "author": "HaJunkiyada",
+  "license": "CC BY-SA 4.0",
+  "url": "https://commons.wikimedia.org/wiki/File:Liat_Portal_for_Foodie_Disorder_-_Broccoli_from_San_Francisco_farmers_market.jpg"
+ },
+ "i-minari": {
+  "title": "Oenanthe javanica1.jpg",
+  "author": "KENPEI",
+  "license": "CC BY-SA 3.0",
+  "url": "https://commons.wikimedia.org/wiki/File:Oenanthe_javanica1.jpg"
+ },
+ "i-corn": {
+  "title": "Dülmen, Hausdülmen, Maisfeld am Sythener Hellweg -- 2021 -- 1840.jpg",
+  "author": "Dietmar Rabich",
+  "license": "CC BY-SA 4.0",
+  "url": "https://commons.wikimedia.org/wiki/File:D%C3%BClmen,_Hausd%C3%BClmen,_Maisfeld_am_Sythener_Hellweg_--_2021_--_1840.jpg"
+ },
+ "i-apple": {
+  "title": "Red Apple.jpg",
+  "author": "Abhijit Tembhekar from Mumbai, India",
+  "license": "CC BY 2.0",
+  "url": "https://commons.wikimedia.org/wiki/File:Red_Apple.jpg"
+ },
+ "i-banana": {
+  "title": "Bunch of bananas on sale.jpg",
+  "author": "Wilfredor",
+  "license": "CC0",
+  "url": "https://commons.wikimedia.org/wiki/File:Bunch_of_bananas_on_sale.jpg"
+ },
+ "i-lemon": {
+  "title": "Lemon.jpg",
+  "author": "André Karwath aka Aka",
+  "license": "CC BY-SA 2.5",
+  "url": "https://commons.wikimedia.org/wiki/File:Lemon.jpg"
+ },
+ "i-nuts": {
+  "title": "Liat Portal for Foodie Disorder - Mixed nuts assortment.jpg",
+  "author": "HaJunkiyada",
+  "license": "CC BY-SA 4.0",
+  "url": "https://commons.wikimedia.org/wiki/File:Liat_Portal_for_Foodie_Disorder_-_Mixed_nuts_assortment.jpg"
+ },
+ "i-cream": {
+  "title": "Frozen Whipped Cream Sandwiches.jpg",
+  "author": "Jo",
+  "license": "CC BY 2.0",
+  "url": "https://commons.wikimedia.org/wiki/File:Frozen_Whipped_Cream_Sandwiches.jpg"
+ },
+ "i-spaghetti": {
+  "title": "Spaghetti measure macro.jpg",
+  "author": "Bodhi Peace",
+  "license": "CC BY-SA 4.0",
+  "url": "https://commons.wikimedia.org/wiki/File:Spaghetti_measure_macro.jpg"
+ },
+ "i-ricefl": {
+  "title": "Two kinds of rice flour.jpg",
+  "author": "FotoosVanRobin",
+  "license": "CC BY-SA 2.0",
+  "url": "https://commons.wikimedia.org/wiki/File:Two_kinds_of_rice_flour.jpg"
+ },
+ "i-rawrice": {
+  "title": "Uncooked ST25 rice on bamboo surface.jpg",
+  "author": "VinhNguyen.1257",
+  "license": "CC BY-SA 4.0",
+  "url": "https://commons.wikimedia.org/wiki/File:Uncooked_ST25_rice_on_bamboo_surface.jpg"
+ },
+ "i-sausage": {
+  "title": "02015 Würstchen zum Frühstück.jpg",
+  "author": "Silar",
+  "license": "CC BY-SA 4.0",
+  "url": "https://commons.wikimedia.org/wiki/File:02015_W%C3%BCrstchen_zum_Fr%C3%BChst%C3%BCck.jpg"
+ },
+ "i-paprika": {
+  "title": "Bell peppers 2020 G2.jpg",
+  "author": "George Chernilevsky",
+  "license": "CC BY-SA 4.0",
+  "url": "https://commons.wikimedia.org/wiki/File:Bell_peppers_2020_G2.jpg"
+ },
+ "i-lotus": {
+  "title": "Pickled lotus root.jpg",
+  "author": "델제수",
+  "license": "CC BY 2.0 kr",
+  "url": "https://commons.wikimedia.org/wiki/File:Pickled_lotus_root.jpg"
+ },
+ "i-burdock": {
+  "title": "Uda-kingobou.jpg",
+  "author": "Uo3rt",
+  "license": "CC BY-SA 4.0",
+  "url": "https://commons.wikimedia.org/wiki/File:Uda-kingobou.jpg"
+ },
+ "i-ginger": {
+  "title": "Ginger (Zingiber officinale).jpg",
+  "author": "Khlshnuramalina",
+  "license": "CC BY-SA 4.0",
+  "url": "https://commons.wikimedia.org/wiki/File:Ginger_(Zingiber_officinale).jpg"
+ },
+ "i-yogurt": {
+  "title": "Joghurt.jpg",
+  "author": "No machine-readable author provided. Rainer Zenz assumed (based on copyright claims).",
+  "license": "CC BY-SA 3.0",
+  "url": "https://commons.wikimedia.org/wiki/File:Joghurt.jpg"
+ },
+ "i-bread": {
+  "title": "Tin Loaf - one slash in the crust.jpg",
+  "author": "Mike Finn",
+  "license": "CC BY 2.0",
+  "url": "https://commons.wikimedia.org/wiki/File:Tin_Loaf_-_one_slash_in_the_crust.jpg"
+ },
+ "i-udon": {
+  "title": "Udon by udono.jpg",
+  "author": "udono",
+  "license": "CC BY 2.0",
+  "url": "https://commons.wikimedia.org/wiki/File:Udon_by_udono.jpg"
  }
 }
