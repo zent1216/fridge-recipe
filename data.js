@@ -71,10 +71,14 @@ const RECIPES = [
 ];
 
 const LEVELS = {1:{n:"쉬움",d:"칼질 조금, 30분 이내"},2:{n:"중간",d:"재우거나 끓이는 과정 포함"},3:{n:"어려움",d:"손질과 단계가 많은 요리"}};
+// 식약처 레시피용 추가 재료
+[["bacon","베이컨",""],["sausage","소시지","비엔나"],["octopus","낙지·주꾸미","낙지,주꾸미,문어"],["mussel","홍합",""],["mackerel","고등어",""],["salmon","연어",""],["anchovy","멸치",""],["cucumber","오이",""],["paprika","파프리카","피망"],["perilla","깻잎",""],["chive","부추",""],["napa","배추","알배추"],["beansprout","숙주",""],["sweetpotato","고구마",""],["sweetpumpkin","단호박",""],["eggplant","가지",""],["broccoli","브로콜리",""],["lettuce","상추","양상추"],["minari","미나리",""],["lotus","연근",""],["burdock","우엉",""],["ginger","생강",""],["kelp","다시마",""],["corn","옥수수",""],["apple","사과",""],["pear","배",""],["banana","바나나",""],["lemon","레몬",""],["avocado","아보카도",""],["nuts","견과류","호두,아몬드,땅콩,잣"],["cream","생크림",""],["yogurt","요거트","요구르트"],["soymilk","두유",""],["bread","식빵","빵"],["spaghetti","파스타면","스파게티"],["noodle","국수면","소면,메밀면"],["udon","우동면","우동"],["ricefl","쌀가루","찹쌀가루"],["rawrice","쌀","찹쌀,현미"]].forEach(([k, n, a]) => { INGREDIENTS[k] = {n, a: a ? a.split(",") : [], prep: [], keep: ""}; });
+Object.values(INGREDIENTS).forEach(v => { v.prep = v.prep || []; });
+
 // 사용자가 직접 고르는 양념. SUBS는 없을 때 대신 쓸 수 있는 양념, OPT_SAUCE는 빼도 되는 양념
-const SEASONINGS = ["소금","설탕","간장","국간장","식용유","참기름","고춧가루","고추장","된장","후추","식초","맛술","물엿","마요네즈","새우젓","굴소스"];
-const SUBS = {"국간장":["간장","소금"],"물엿":["설탕"],"참기름":["식용유"],"식용유":["참기름"],"맛술":["설탕"]};
-const OPT_SAUCE = ["통깨","후추","통후추","월계수잎","커피가루 또는 소주","돈가스 소스"];
+const SEASONINGS = ["소금","설탕","간장","국간장","식용유","참기름","들기름","올리브유","고춧가루","고추장","된장","후추","식초","레몬즙","맛술","물엿","올리고당","꿀","마요네즈","케첩","버터","전분","카레가루","겨자","액젓","새우젓","굴소스"];
+const SUBS = {"국간장":["간장","소금"],"간장":["국간장"],"물엿":["올리고당","꿀","설탕"],"올리고당":["물엿","꿀","설탕"],"꿀":["올리고당","물엿","설탕"],"설탕":["올리고당","꿀","물엿"],"참기름":["들기름","식용유"],"들기름":["참기름","식용유"],"올리브유":["식용유"],"식용유":["올리브유","참기름"],"버터":["식용유","올리브유"],"레몬즙":["식초"],"식초":["레몬즙"],"액젓":["간장","소금"],"새우젓":["액젓","소금"],"맛술":["설탕"]};
+const OPT_SAUCE = ["통깨","허브","겨자","후추","통후추","월계수잎","커피가루 또는 소주","돈가스 소스"];
 // 없어도 만들 수 있는 재료
 const OPT = {gyeranmari:["scallion","carrot"],kimchirice:["scallion","egg"],tunamayo:["onion","egg"],gyeranjjim:["scallion"],kongnamulguk:["scallion","garlic"],eomukbokkeum:["carrot","onion"],spamdon:["onion","egg"],tomatoegg:["scallion"],kimchijjigae:["tofu","scallion","onion"],doenjang:["zucchini","potato","onion","chili"],jeyuk:["carrot","scallion"],tteokbokki:["cabbage","fishcake","scallion"],miyeokguk:["garlic"],gamjajorim:["carrot","onion"],ojingeo:["cabbage","chili"],budae:["cheese","tofu","ramen"],mutguk:["garlic","scallion"],japchae:["spinach","mushroom"],dakbokkeum:["carrot"],pajeon:["chili","shrimp","egg"],gimbap:["spam","spinach"],bibimbap:["beef","mushroom","zucchini"],suyuk:["onion","scallion"],donkatsu:["cabbage"],galbijjim:["mushroom"]};
 if (typeof module !== "undefined") module.exports = {INGREDIENTS, RECIPES, LEVELS, SEASONINGS, SUBS, OPT_SAUCE, OPT};
