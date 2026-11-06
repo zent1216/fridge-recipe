@@ -298,5 +298,46 @@
   "author": "Ralff Nestor Nacor",
   "license": "CC BY-SA 4.0",
   "url": "https://commons.wikimedia.org/wiki/File:Stir_Fried_Squid_(Taiwan).jpg"
+ },
+ "i-squid": {
+  "title": "Todarodes pacificus ruler.jpg",
+  "author": "self",
+  "license": "CC BY-SA 3.0",
+  "url": "https://commons.wikimedia.org/wiki/File:Todarodes_pacificus_ruler.jpg"
+ },
+ "i-seaweed": {
+  "title": "Dried wakame.jpg",
+  "author": "Fumikas Sagisavas",
+  "license": "CC0",
+  "url": "https://commons.wikimedia.org/wiki/File:Dried_wakame.jpg"
+ },
+ "r-miyeokguk": {
+  "title": "Gajami-miyeok-guk 1.jpg",
+  "author": "대경라이프",
+  "license": "CC BY-SA 4.0",
+  "url": "https://commons.wikimedia.org/wiki/File:Gajami-miyeok-guk_1.jpg"
+ },
+ "i-potato": {
+  "title": "감자",
+  "author": "AI 생성 이미지 (Figma Weave, Nano Banana 2 Lite)",
+  "ai": true
+ },
+ "i-zucchini": {
+  "title": "애호박",
+  "author": "AI 생성 이미지 (Canva)",
+  "ai": true,
+  "file": "i-zucchini.png"
+ },
+ "i-tofu": {
+  "title": "두부",
+  "author": "AI 생성 이미지 (Canva)",
+  "ai": true,
+  "file": "i-tofu.png"
+ },
+ "i-spam": {
+  "title": "런천미트",
+  "author": "AI 생성 이미지 (Canva)",
+  "ai": true,
+  "file": "i-spam.png"
  }
 }

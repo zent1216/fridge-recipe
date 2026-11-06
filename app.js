@@ -21,7 +21,7 @@ function resolve(text) {
   return Object.keys(INGREDIENTS).find(k => INGREDIENTS[k].n === t || INGREDIENTS[k].a.includes(t));
 }
 function img(id, label, cls) {
-  if (photos && photos[id]) return `<img class="ph ${cls}" src="images/${id}.jpg" alt="${esc(label)}" loading="lazy">`;
+  if (photos && photos[id]) return `<img class="ph ${cls}" src="images/${esc(photos[id].file || id + ".jpg")}" alt="${esc(label)}" loading="lazy">`;
   return `<span class="ph tile ${cls}" role="img" aria-label="${esc(label)}">${esc(label)}</span>`;
 }
 function scored() {
@@ -69,15 +69,15 @@ function detail(r) {
    <div><h1>${r.n}</h1><p class="meta">${LEVELS[r.lv].n} · ${r.min}분 · 2인분</p></div>
    <section><h2>재료</h2><table>${r.ing.map(row).join("")}</table></section>
    <section><h2>양념</h2><table>${r.sauce.map(([n, a]) => `<tr><td>${n}</td><td>${a}</td></tr>`).join("")}</table></section>
-   <section><h2>재료 손질</h2>${r.ing.map(([k]) => { const v = INGREDIENTS[k]; return `<div class="prep">${img("i-" + k, v.n, "")}<div><h3>${v.n}</h3><ol>${v.prep.map(p => `<li>${p}</li>`).join("")}</ol><p class="note">보관: ${v.keep}</p></div></div>`; }).join("")}</section>
+   <section><h2>재료 손질</h2>${r.ing.map(([k]) => { const v = INGREDIENTS[k]; return `<div class="prep">${img("i-" + k, v.n, "")}<div><h3>${v.n}</h3>${photos && photos["i-" + k] && photos["i-" + k].ai ? `<p class="note">사진은 AI 생성 이미지입니다.</p>` : ""}<ol>${v.prep.map(p => `<li>${p}</li>`).join("")}</ol><p class="note">보관: ${v.keep}</p></div></div>`; }).join("")}</section>
    <section><h2>만드는 법</h2><ol class="steps">${r.steps.map(s => { const t = stepThumbs(r, s); return `<li><div>${s}${t ? `<div class="thumbs">${t}</div>` : ""}</div></li>`; }).join("")}</ol></section>
    <p class="tip"><b>팁</b> ${r.tip}</p></article>`;
   scrollTo(0, 0);
 }
 function credits() {
   document.title = "사진 출처 · 오늘 뭐 해먹지";
-  app.innerHTML = `<a href="#">← 돌아가기</a><h1>사진 출처</h1><p>모든 사진은 위키미디어 공용의 자유 라이선스 사진입니다. 앱 크기에 맞게 표시됩니다.</p>
-  <div class="credits">${Object.values(photos || {}).map(c => `<span><a href="${esc(c.url)}" target="_blank" rel="noopener">${esc(c.title)}</a> · ${esc(c.author)} · ${esc(c.license)}</span>`).join("")}</div>`;
+  app.innerHTML = `<a href="#">← 돌아가기</a><h1>사진 출처</h1><p>사진은 위키미디어 공용의 자유 라이선스 사진이며, AI 생성 이미지는 따로 표시했습니다.</p>
+  <div class="credits">${Object.values(photos || {}).map(c => c.ai ? `<span>${esc(c.title)} · ${esc(c.author)}</span>` : `<span><a href="${esc(c.url)}" target="_blank" rel="noopener">${esc(c.title)}</a> · ${esc(c.author)} · ${esc(c.license)}</span>`).join("")}</div>`;
 }
 function route() {
   const h = location.hash.slice(1);
