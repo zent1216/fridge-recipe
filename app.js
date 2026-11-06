@@ -97,7 +97,8 @@ function detail(r) {
    <section><h2>양념</h2><table>${r.sauce.map(([n, a]) => { const s = sauceState(n); const tag = /^찬?물$|또는 물$/.test(n) ? "" : s.sub ? `<span class="pill opt">${s.sub}로 대체</span>` : s.ok ? `<span class="pill">있음</span>` : s.opt ? `<span class="pill opt">빼도 됨</span>` : `<span class="pill miss">없음</span>`; return `<tr><td>${n}</td><td>${tag}</td><td>${a}</td></tr>`; }).join("")}</table></section>
    <section><h2>재료 손질</h2>${r.ing.map(([k]) => { const v = INGREDIENTS[k]; return `<div class="prep">${img("i-" + k, v.n, "")}<div><h3>${v.n}</h3>${photos && photos["i-" + k] && photos["i-" + k].ai ? `<p class="note">사진은 AI 생성 이미지입니다.</p>` : ""}<ol>${v.prep.map(p => `<li>${p}</li>`).join("")}</ol><p class="note">보관: ${v.keep}</p></div></div>`; }).join("")}</section>
    <section><h2>만드는 법</h2><ol class="steps">${r.steps.map(s => { const t = stepThumbs(r, s); return `<li><div>${s}${t ? `<div class="thumbs">${t}</div>` : ""}</div></li>`; }).join("")}</ol></section>
-   <p class="tip"><b>팁</b> ${r.tip}</p></article>`;
+   <p class="tip"><b>팁</b> ${r.tip}</p>
+   <p><a href="https://www.10000recipe.com/recipe/list.html?q=${encodeURIComponent(r.n)}" target="_blank" rel="noopener">만개의레시피에서 ${r.n} 더 찾아보기 ↗</a></p></article>`;
   scrollTo(0, 0);
 }
 function credits() {
