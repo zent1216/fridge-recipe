@@ -54,6 +54,10 @@ button{cursor:pointer}
 td:nth-child(2):has(.pill){white-space:nowrap}
 #rs{width:100%;padding:11px 14px;border:1px solid var(--line);border-radius:10px;background:var(--bg)}
 .jump{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:5;max-width:calc(100vw - 32px);padding:12px 20px;border:0;border-radius:99px;background:var(--accent);color:var(--on-accent);font-weight:700;box-shadow:0 4px 16px rgba(0,0,0,.3);font-variant-numeric:tabular-nums}
+.chip,.chip.custom{background:#f4801f;color:#2b1200;border:0;font-weight:600}
+.ing[aria-pressed="true"]{border-color:#f4801f;color:#f4801f}
+.ing[aria-pressed="true"]::after{background:#f4801f;color:#2b1200}
+.sea[data-s][aria-pressed="true"]{background:#f4801f;border-color:#f4801f;color:#2b1200}
 .results{scroll-margin-top:12px;display:flex;flex-direction:column;gap:12px}
 .stepimg{display:block;width:100%;max-width:420px;margin-top:8px;border-radius:10px;background:var(--line)}
 .parts{margin-top:8px}
