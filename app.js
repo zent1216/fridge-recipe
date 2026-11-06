@@ -77,6 +77,7 @@ function resultsHTML() {
 function levelsHTML() {
   return [1, 2, 3].map(l => `<button class="lv" data-l="${l}" aria-pressed="${state.level === l}"><b>${LEVELS[l].n}</b><small>${LEVELS[l].d}</small><small class="cnt">지금 가능 ${ready(l).toLocaleString()}개</small></button>`).join("");
 }
+function jumpText() { const n = [1, 2, 3].map(ready); return `지금 만들 수 있는 요리 ${(n[0] + n[1] + n[2]).toLocaleString()}개 · ${LEVELS[state.level].n} ${n[state.level - 1].toLocaleString()}개 보기 ↓`; }
 function home() {
   document.title = "오늘 뭐 해먹지";
   const chips = [...state.have].map(k => `<button class="chip" data-del="${k}" aria-label="${INGREDIENTS[k].n} 빼기">${INGREDIENTS[k].n} ×</button>`).join("")
@@ -96,11 +97,13 @@ function home() {
     <div class="chips">${CATS.map(c => `<button class="sea" data-c="${esc(c)}" aria-pressed="${state.cat === c}">${esc(c)}</button>`).join("")}</div>
     <label class="check"><input type="checkbox" id="show-miss" ${state.showMiss ? "checked" : ""}> 부족한 재료가 있는 요리도 보기</label></section>
   <section class="results" id="results">${resultsHTML()}</section>
+  <button class="jump" id="jump">${jumpText()}</button>
   <footer>레시피: 직접 작성 ${RECIPES.length}개, <a href="https://www.foodsafetykorea.go.kr" target="_blank" rel="noopener">식품의약품안전처 식품안전나라</a> 조리식품 레시피 DB · <a href="#credits">출처 보기</a></footer>`;
 }
 function refreshResults() {
   const box = document.getElementById("results"); if (box) box.innerHTML = resultsHTML();
   const lv = document.getElementById("levels"); if (lv) lv.innerHTML = levelsHTML();
+  const j = document.getElementById("jump"); if (j) j.textContent = jumpText();
 }
 function stepThumbs(r, text) {
   return r.ing.filter(([k]) => text.includes(info(k).n)).map(([k]) => img("i-" + k, info(k).n, "mini")).join("");
@@ -152,6 +155,7 @@ app.addEventListener("click", e => {
   else if (b.id === "seas-all") keepScroll(() => { state.seas = new Set(SEASONINGS); });
   else if (b.id === "seas-none") keepScroll(() => { state.seas.clear(); });
   else if (b.id === "clear") keepScroll(() => { state.have.clear(); state.custom = []; });
+  else if (b.id === "jump") document.getElementById("results").scrollIntoView({behavior: "smooth"});
   else if (b.id === "more") { state.limit += PAGE; refreshResults(); }
 });
 app.addEventListener("submit", e => {
