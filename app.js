@@ -56,7 +56,7 @@ function matches(r) {
   if (state.cat !== "전체" && r.cat !== state.cat) return false;
   return !state.q || norm(r.n).includes(norm(state.q));
 }
-function ready(l) { return ALL.filter(r => r.lv === l && matches(r)).map(check).filter(x => x.got > 0 && !x.miss.length).length; }
+function ready(l) { return ALL.filter(r => r.lv === l && matches(r)).map(check).filter(x => (x.got > 0 || state.q) && (state.showMiss || !x.miss.length)).length; }
 function scored() {
   return ALL.filter(r => r.lv === state.level && matches(r)).map(check).filter(x => (x.got > 0 || state.q) && (state.showMiss || !x.miss.length))
     .sort((a, b) => a.miss.length - b.miss.length || a.skip.length - b.skip.length || b.got - a.got);
@@ -69,15 +69,15 @@ function cardHTML({r, miss, skip, got}) {
 }
 function resultsHTML() {
   const ok = scored(), title = state.showMiss ? "추천 요리" : "지금 만들 수 있는 요리";
-  const empty = state.showMiss ? "조건에 맞는 요리가 없습니다. 재료를 넣거나 난이도, 종류를 바꿔 보세요." : "지금 재료와 양념으로 만들 수 있는 요리가 없습니다. 재료를 더 넣거나 다른 난이도를 고르거나, 위 체크를 켜 보세요.";
+  const empty = state.showMiss ? "조건에 맞는 요리가 없습니다. 재료를 넣거나 난이도, 종류를 바꿔 보세요." : "지금 재료와 양념으로 만들 수 있는 요리가 없습니다. 재료를 더 넣거나 다른 난이도를 고르거나, 난이도 옆 체크를 켜 보세요.";
   return `<h2 id="h-r">${title} ${ok.length.toLocaleString()}개</h2>
     ${ok.length ? `<div class="cards">${ok.slice(0, state.limit).map(cardHTML).join("")}</div>` : `<p class="panel">${empty}</p>`}
     ${ok.length > state.limit ? `<button class="btn ghost" id="more">더 보기 (${(ok.length - state.limit).toLocaleString()}개 남음)</button>` : ""}`;
 }
 function levelsHTML() {
-  return [1, 2, 3].map(l => `<button class="lv" data-l="${l}" aria-pressed="${state.level === l}"><b>${LEVELS[l].n}</b><small>${LEVELS[l].d}</small><small class="cnt">지금 가능 ${ready(l).toLocaleString()}개</small></button>`).join("");
+  return [1, 2, 3].map(l => `<button class="lv" data-l="${l}" aria-pressed="${state.level === l}"><b>${LEVELS[l].n}</b><small>${LEVELS[l].d}</small><small class="cnt">${state.showMiss ? "표시" : "지금 가능"} ${ready(l).toLocaleString()}개</small></button>`).join("");
 }
-function jumpText() { const n = [1, 2, 3].map(ready); return `지금 만들 수 있는 요리 ${(n[0] + n[1] + n[2]).toLocaleString()}개 · ${LEVELS[state.level].n} ${n[state.level - 1].toLocaleString()}개 보기 ↓`; }
+function jumpText() { const n = [1, 2, 3].map(ready); return `${state.showMiss ? "재료 부족 포함 요리" : "지금 만들 수 있는 요리"} ${(n[0] + n[1] + n[2]).toLocaleString()}개 · ${LEVELS[state.level].n} ${n[state.level - 1].toLocaleString()}개 보기 ↓`; }
 function home() {
   document.title = "오늘 뭐 해먹지";
   const chips = [...state.have].map(k => `<button class="chip" data-del="${k}" aria-label="${INGREDIENTS[k].n} 빼기">${INGREDIENTS[k].n} ×</button>`).join("")
@@ -92,10 +92,9 @@ function home() {
   <section class="panel" aria-labelledby="h-s"><div class="row between"><h2 id="h-s">기본 양념</h2><span class="row"><button class="btn ghost small" id="seas-all">모두 있음</button><button class="btn ghost small" id="seas-none">모두 없음</button></span></div>
     <div class="chips">${SEASONINGS.map(s => `<button class="sea" data-s="${s}" aria-pressed="${state.seas.has(s)}">${s}</button>`).join("")}</div>
     <p class="note">물과 육수는 있다고 봅니다. 일부 양념은 있는 양념으로 대체해 추천합니다.</p></section>
-  <section class="panel" aria-labelledby="h-l"><h2 id="h-l">난이도</h2><div class="levels" id="levels">${levelsHTML()}</div></section>
+  <section class="panel" aria-labelledby="h-l"><div class="row between"><h2 id="h-l">난이도</h2><label class="check"><input type="checkbox" id="show-miss" ${state.showMiss ? "checked" : ""}> 재료가 부족해도 가능한 요리 표시하기</label></div><div class="levels" id="levels">${levelsHTML()}</div></section>
   <section class="panel" aria-label="요리 찾기"><input id="rs" type="search" value="${esc(state.q)}" placeholder="요리 이름 검색 (예: 김치, 파스타)" aria-label="요리 이름 검색" autocomplete="off">
-    <div class="chips">${CATS.map(c => `<button class="sea" data-c="${esc(c)}" aria-pressed="${state.cat === c}">${esc(c)}</button>`).join("")}</div>
-    <label class="check"><input type="checkbox" id="show-miss" ${state.showMiss ? "checked" : ""}> 부족한 재료가 있는 요리도 보기</label></section>
+    <div class="chips">${CATS.map(c => `<button class="sea" data-c="${esc(c)}" aria-pressed="${state.cat === c}">${esc(c)}</button>`).join("")}</div></section>
   <section class="results" id="results">${resultsHTML()}</section>
   <button class="jump" id="jump">${jumpText()}</button>
   <footer>레시피: 직접 작성 ${RECIPES.length}개, <a href="https://www.foodsafetykorea.go.kr" target="_blank" rel="noopener">식품의약품안전처 식품안전나라</a> 조리식품 레시피 DB · <a href="#credits">출처 보기</a></footer>`;
